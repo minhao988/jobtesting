@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 方案二：強制不換行並顯示省略號 */
+        .truncate-link {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px; /* 根據手機寬度調整 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+
+    <div class="max-w-md mx-auto space-y-8">
+        
+        <section class="bg-white p-4 rounded-xl shadow-sm">
+            <h3 class="text-gray-400 text-xs font-bold uppercase mb-4">Display Mode (Vertical)</h3>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex items-center space-x-2 mb-1">
+                        <span class="text-red-600">▶</span>
+                        <span class="font-bold text-gray-700">YouTube</span>
+                    </div>
+                    <p class="text-blue-500 text-sm break-all bg-gray-50 p-2 rounded border border-dashed">
+                        https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley
+                    </p>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2 mb-1">
+                        <span class="text-blue-600">f</span>
+                        <span class="font-bold text-gray-700">Facebook</span>
+                    </div>
+                    <p class="text-blue-500 text-sm break-all bg-gray-50 p-2 rounded border border-dashed">
+                        https://www.facebook.com/some.very.long.profile.link.that.usually.gets.cut.off
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-4 rounded-xl shadow-sm">
+            <h3 class="text-gray-400 text-xs font-bold uppercase mb-4">Settings Mode (Input)</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">YouTube Link</label>
+                    <div class="flex shadow-sm rounded-lg overflow-hidden border border-gray-300">
+                        <span class="inline-flex items-center px-3 bg-gray-50 border-r border-gray-300 text-gray-500 text-sm">
+                            Link
+                        </span>
+                        <input type="text" value="https://www.youtube.com/watch?v=abc123456789" 
+                            class="flex-1 block w-full px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Facebook Link</label>
+                    <div class="flex shadow-sm rounded-lg overflow-hidden border border-gray-300">
+                        <span class="inline-flex items-center px-3 bg-gray-50 border-r border-gray-300 text-gray-500 text-sm">
+                            Link
+                        </span>
+                        <input type="text" value="https://www.facebook.com/profile.php?id=1000000000" 
+                            class="flex-1 block w-full px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
