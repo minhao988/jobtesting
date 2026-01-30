@@ -3,67 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 讓長連結在輸入框內可以完整顯示，不被截斷 */
-        .long-link-input {
-            word-break: break-all; /* 如果是 textarea 會自動換行 */
-            white-space: pre-wrap; /* 保留換行 */
+        /* 控制預設高度與自動換行 */
+        .auto-height-textarea {
+            min-height: 44px; /* 設定你想要的預設高度 (約一行) */
+            resize: none;    /* 隱藏右下角調整手把，讓介面更乾淨 */
+            line-height: 1.5;
+            word-break: break-all; /* 強制長連結換行 */
         }
     </style>
 </head>
 <body class="bg-gray-50 p-4">
 
-    <div class="max-w-md mx-auto">
-        <h2 class="text-xl font-bold text-gray-800 mb-6">Social Media Links</h2>
+    <div class="max-w-md mx-auto space-y-4">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Social Media Settings</h2>
         
-        <div class="space-y-6">
-
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                <label class="flex items-center space-x-2 text-sm font-bold text-gray-700 mb-3">
-                    <span class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-600 rounded-full text-lg">▶</span>
-                    <span>Youtube</span>
-                </label>
-                
-                <textarea 
-                    rows="2"
-                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-sm text-blue-600 transition-all"
-                    placeholder="Paste your Youtube link here...">https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=share&utm_source=copy_link&long_param=abcdefghijklmnopqrstuvwxyz1234567890</textarea>
-                
-                <p class="mt-2 text-[10px] text-gray-400">Tip: Long links will wrap automatically so you can see the full URL.</p>
-            </div>
-
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                <label class="flex items-center space-x-2 text-sm font-bold text-gray-700 mb-3">
-                    <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full text-lg font-serif">f</span>
-                    <span>Facebook</span>
-                </label>
-                
-                <textarea 
-                    rows="2"
-                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm text-blue-600 transition-all"
-                    placeholder="Paste your Facebook link here...">https://www.facebook.com/yourprofile/posts/pfbid02L8sJ6W9aM7G3Q1rE4tY5uI6oP7sA8dF9gH0jK1lM2nB3vC4xZ5xS6dF7gH8jK9l</textarea>
-            </div>
-
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
-                <label class="flex items-center space-x-2 text-sm font-bold text-gray-700 mb-3">
-                    <span class="w-8 h-8 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white rounded-full text-sm">📸</span>
-                    <span>Instagram</span>
-                </label>
-                
-                <textarea 
-                    rows="2"
-                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none text-sm text-blue-600 transition-all"
-                    placeholder="Paste your Instagram link here..."></textarea>
-            </div>
-
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+            <label class="block text-sm font-bold text-gray-700 mb-2">Youtube</label>
+            <textarea 
+                oninput="autoResize(this)"
+                class="auto-height-textarea w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-sm text-blue-600 transition-all"
+                placeholder="Paste link here...">https://www.youtube.com/watch?v=short-link</textarea>
         </div>
 
-        <button class="w-full mt-8 bg-black text-white font-bold py-4 rounded-2xl shadow-lg active:scale-[0.98] transition-all">
-            Save Settings
-        </button>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+            <label class="block text-sm font-bold text-gray-700 mb-2">Facebook</label>
+            <textarea 
+                oninput="autoResize(this)"
+                class="auto-height-textarea w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm text-blue-600 transition-all"
+                placeholder="Paste link here...">https://www.facebook.com/very/long/link/that/needs/to/wrap/automatically/to/be/fully/visible/on/mobile/screens/1234567890</textarea>
+        </div>
+
     </div>
 
+    <script>
+        // 自動調整高度的腳本：輸入內容越多，框就越高
+        function autoResize(textarea) {
+            textarea.style.height = 'auto'; // 先重置高度
+            textarea.style.height = textarea.scrollHeight + 'px'; // 設定為內容的高度
+        }
+
+        // 頁面載入時先執行一次，確保初始長連結能完全顯示
+        window.onload = function() {
+            document.querySelectorAll('.auto-height-textarea').forEach(el => {
+                autoResize(el);
+            });
+        };
+    </script>
 </body>
 </html>
