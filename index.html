@@ -3,123 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Information</title>
+    <title>Payment Information Dropdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 隱藏原生 Checkbox，使用自定義樣式 */
-        .type-checkbox:checked + .type-card {
-            border-color: #2563eb;
+        /* 隱藏原生 checkbox，用自定義樣式 */
+        .custom-checkbox:checked + label {
             background-color: #eff6ff;
-            color: #1e40af;
-        }
-        .type-checkbox:checked + .type-card .check-icon {
-            display: block;
+            color: #2563eb;
         }
     </style>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
 
-    <div class="max-w-md mx-auto min-h-screen flex flex-col">
-        <header class="bg-white border-b px-4 py-4 sticky top-0 z-10">
-            <h1 class="text-xl font-bold text-gray-800 text-center">Payment Information</h1>
-        </header>
+    <div class="max-w-md mx-auto min-h-screen flex flex-col p-4">
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Payment Information</h2>
 
-        <main class="flex-grow p-4 space-y-6">
-            <section>
-                <label class="block text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wider">
-                    Select Payment Type (Multiple)
-                </label>
-                <div class="grid grid-cols-1 gap-3">
-                    <label class="relative">
-                        <input type="checkbox" class="type-checkbox hidden" name="paymentType" value="cash">
-                        <div class="type-card flex items-center justify-between p-4 bg-white border-2 border-transparent rounded-xl shadow-sm transition-all cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">💵</span>
-                                <span class="font-medium">Cash</span>
-                            </div>
-                            <div class="check-icon hidden text-blue-600 font-bold">✓</div>
-                        </div>
-                    </label>
+        <div class="space-y-4">
+            <div class="relative">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Payment Type</label>
+                
+                <button type="button" onclick="toggleDropdown()" id="dropdownButton" 
+                    class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                    <span id="selectedText" class="text-gray-500">Select a payment type</span>
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
 
-                    <label class="relative">
-                        <input type="checkbox" class="type-checkbox hidden" name="paymentType" value="bank">
-                        <div class="type-card flex items-center justify-between p-4 bg-white border-2 border-transparent rounded-xl shadow-sm transition-all cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">🏦</span>
-                                <span class="font-medium">Bank Transfer</span>
-                            </div>
-                            <div class="check-icon hidden text-blue-600 font-bold">✓</div>
+                <div id="dropdownMenu" class="hidden absolute z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden">
+                    <div class="p-2 space-y-1">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="cash" value="Cash" class="custom-checkbox hidden" onchange="updateSelection()">
+                            <label for="cash" class="w-full px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-50 flex justify-between">
+                                <span>💵 Cash</span>
+                                <span class="check-mark hidden text-blue-600">✓</span>
+                            </label>
                         </div>
-                    </label>
-
-                    <label class="relative">
-                        <input type="checkbox" class="type-checkbox hidden" name="paymentType" value="online">
-                        <div class="type-card flex items-center justify-between p-4 bg-white border-2 border-transparent rounded-xl shadow-sm transition-all cursor-pointer">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">📱</span>
-                                <span class="font-medium">Online Payment</span>
-                            </div>
-                            <div class="check-icon hidden text-blue-600 font-bold">✓</div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="bank" value="Bank Transfer" class="custom-checkbox hidden" onchange="updateSelection()">
+                            <label for="bank" class="w-full px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-50 flex justify-between">
+                                <span>🏦 Bank Transfer</span>
+                                <span class="check-mark hidden text-blue-600">✓</span>
+                            </label>
                         </div>
-                    </label>
-                </div>
-            </section>
-
-            <section class="bg-white rounded-2xl shadow-sm p-5 space-y-5">
-                <div>
-                    <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Total Amount</label>
-                    <div class="relative mt-1">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <span class="text-gray-500 text-lg">$</span>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="online" value="Online Payment" class="custom-checkbox hidden" onchange="updateSelection()">
+                            <label for="online" class="w-full px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-50 flex justify-between">
+                                <span>📱 Online Payment</span>
+                                <span class="check-mark hidden text-blue-600">✓</span>
+                            </label>
                         </div>
-                        <input type="number" name="amount" id="amount" 
-                            inputmode="decimal"
-                            class="block w-full pl-10 pr-4 py-3 border-gray-200 bg-gray-50 border rounded-xl focus:ring-blue-500 focus:border-blue-500 text-lg" 
-                            placeholder="0.00">
                     </div>
                 </div>
+            </div>
 
-                <div>
-                    <label for="remarks" class="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
-                    <textarea name="remarks" id="remarks" rows="3" 
-                        class="block w-full px-4 py-3 border-gray-200 bg-gray-50 border rounded-xl focus:ring-blue-500 focus:border-blue-500" 
-                        placeholder="Add any additional notes here..."></textarea>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                <div class="relative">
+                    <span class="absolute left-4 top-3 text-gray-400">$</span>
+                    <input type="number" id="amount" inputmode="decimal" 
+                        class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+                        placeholder="0.00">
                 </div>
-            </section>
-        </main>
+            </div>
 
-        <footer class="p-4 bg-white border-t">
-            <button onclick="handleSubmit()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg transition-colors active:scale-[0.98]">
-                Submit Payment
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
+                <textarea id="remarks" rows="3" 
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" 
+                    placeholder="Enter details..."></textarea>
+            </div>
+
+            <button onclick="submitForm()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl mt-4 active:scale-95 transition-transform">
+                Confirm
             </button>
-        </footer>
+        </div>
     </div>
 
     <script>
-        function handleSubmit() {
-            // 獲取所有選中的支付方式
-            const selectedTypes = Array.from(document.querySelectorAll('input[name="paymentType"]:checked'))
-                .map(cb => cb.value);
-            
-            const amount = document.getElementById('amount').value;
-            const remarks = document.getElementById('remarks').value;
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('hidden');
+        }
 
-            if (selectedTypes.length === 0) {
-                alert('Please select at least one payment type.');
-                return;
-            }
-            if (!amount) {
-                alert('Please enter the amount.');
-                return;
-            }
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            const selectedText = document.getElementById('selectedText');
+            let selected = [];
 
-            console.log({
-                paymentTypes: selectedTypes,
-                amount: amount,
-                remarks: remarks
+            checkboxes.forEach(cb => {
+                const label = cb.nextElementSibling;
+                const checkMark = label.querySelector('.check-mark');
+                
+                if (cb.checked) {
+                    selected.push(cb.value);
+                    checkMark.classList.remove('hidden');
+                } else {
+                    checkMark.classList.add('hidden');
+                }
             });
+
+            if (selected.length > 0) {
+                selectedText.innerText = selected.join(', ');
+                selectedText.classList.remove('text-gray-500');
+                selectedText.classList.add('text-black');
+            } else {
+                selectedText.innerText = 'Select a payment type';
+                selectedText.classList.remove('text-black');
+                selectedText.classList.add('text-gray-500');
+            }
+        }
+
+        // 點擊外面自動關閉下拉選單
+        window.onclick = function(event) {
+            if (!event.target.closest('#dropdownButton') && !event.target.closest('#dropdownMenu')) {
+                document.getElementById('dropdownMenu').classList.add('hidden');
+            }
+        }
+
+        function submitForm() {
+            const amount = document.getElementById('amount').value;
+            const text = document.getElementById('selectedText').innerText;
             
-            alert('Form submitted successfully! Check console for data.');
+            if (text === 'Select a payment type') {
+                alert('Please select a payment type');
+                return;
+            }
+            alert('Submitted: ' + text + ' with Amount: ' + amount);
         }
     </script>
 </body>
