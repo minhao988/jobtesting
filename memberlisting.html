@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>Status Dashboard</title>
+<title>Admin Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -29,7 +29,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 40px auto;
   padding: 0 20px;
 }
@@ -40,7 +40,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .summary-card {
@@ -48,9 +48,6 @@ body {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
 }
 
 .summary-title {
@@ -59,8 +56,89 @@ body {
 }
 
 .summary-value {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
+}
+
+/* Background status */
+
+.card-active    { background:#ecfdf5; border-color:#a7f3d0; }
+.card-inactive  { background:#f3f4f6; border-color:#e5e7eb; }
+.card-suspend   { background:#fffbeb; border-color:#fde68a; }
+.card-terminate { background:#fef2f2; border-color:#fecaca; }
+.card-delete    { background:#f1f5f9; border-color:#cbd5e1; }
+.card-total     { background:#ffffff; border-color:#e5e7eb; }
+
+/* ===== Control Block ===== */
+
+.control-block {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.control-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex: 1;
+}
+
+.control-right {
+  display: flex;
+  gap: 10px;
+}
+
+.input,
+.select {
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.15);
+}
+
+.btn-primary {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-outline {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: #f3f4f6;
 }
 
 /* ===== Table ===== */
@@ -98,8 +176,12 @@ th {
   font-weight: 600;
 }
 
-tr:hover {
-  background: #f9fafb;
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tbody tr:hover {
+  background: #f1f5f9 !important;
 }
 
 /* ===== Status Badge ===== */
@@ -120,21 +202,6 @@ tr:hover {
 .terminate { background: #fee2e2; color: #991b1b; }
 .delete    { background: #e5e7eb; color: #111827; }
 
-/* ===== Buttons ===== */
-
-.btn {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: #fff;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.btn:hover {
-  background: #f3f4f6;
-}
-
 /* ===== Responsive ===== */
 
 @media (max-width: 768px) {
@@ -142,21 +209,6 @@ tr:hover {
   th:nth-child(6), td:nth-child(6) {
     display: none;
   }
-}
-
-  /* ===== Summary Card Background Status ===== */
-
-.card-active    { background:#ecfdf5; border-color:#a7f3d0; }
-.card-inactive  { background:#f3f4f6; border-color:#e5e7eb; }
-.card-suspend   { background:#fffbeb; border-color:#fde68a; }
-.card-terminate { background:#fef2f2; border-color:#fecaca; }
-.card-delete    { background:#f1f5f9; border-color:#cbd5e1; }
-.card-total     { background:#ffffff; border-color:#e5e7eb; }
-
-.summary-value {
-  font-size: 26px;
-  font-weight: 700;
-  color: #111827;
 }
 </style>
 </head>
@@ -166,43 +218,71 @@ tr:hover {
 <div class="container">
 
   <!-- Summary -->
-<div class="summary-grid">
+  <div class="summary-grid">
 
-  <div class="summary-card card-active">
-    <div class="summary-title">Active</div>
-    <div class="summary-value">128</div>
+    <div class="summary-card card-active">
+      <div class="summary-title">Active</div>
+      <div class="summary-value">128</div>
+    </div>
+
+    <div class="summary-card card-inactive">
+      <div class="summary-title">Inactive</div>
+      <div class="summary-value">36</div>
+    </div>
+
+    <div class="summary-card card-suspend">
+      <div class="summary-title">Suspend</div>
+      <div class="summary-value">9</div>
+    </div>
+
+    <div class="summary-card card-terminate">
+      <div class="summary-title">Terminate</div>
+      <div class="summary-value">5</div>
+    </div>
+
+    <div class="summary-card card-delete">
+      <div class="summary-title">Delete</div>
+      <div class="summary-value">18</div>
+    </div>
+
+    <div class="summary-card card-total">
+      <div class="summary-title">Total</div>
+      <div class="summary-value">196</div>
+    </div>
+
   </div>
 
-  <div class="summary-card card-inactive">
-    <div class="summary-title">Inactive</div>
-    <div class="summary-value">36</div>
+  <!-- Control Block -->
+  <div class="control-block">
+
+    <div class="control-left">
+      <input class="input" type="text" placeholder="Search name / email...">
+
+      <select class="select">
+        <option value="">All Status</option>
+        <option>Active</option>
+        <option>Inactive</option>
+        <option>Suspend</option>
+        <option>Terminate</option>
+        <option>Delete</option>
+      </select>
+
+      <input class="input" type="date">
+      <input class="input" type="date">
+    </div>
+
+    <div class="control-right">
+      <button class="btn-outline">Reset</button>
+      <button class="btn-primary">Search</button>
+      <button class="btn-outline">Export</button>
+    </div>
+
   </div>
 
-  <div class="summary-card card-suspend">
-    <div class="summary-title">Suspend</div>
-    <div class="summary-value">9</div>
-  </div>
-
-  <div class="summary-card card-terminate">
-    <div class="summary-title">Terminate</div>
-    <div class="summary-value">5</div>
-  </div>
-
-  <div class="summary-card card-delete">
-    <div class="summary-title">Delete</div>
-    <div class="summary-value">18</div>
-  </div>
-
-  <div class="summary-card card-total">
-    <div class="summary-title">Total</div>
-    <div class="summary-value">196</div>
-  </div>
-
-</div>
-
-  <!-- Report List -->
+  <!-- Data Grid -->
   <div class="table-wrap">
     <div class="table-header">Member Status Report</div>
+
     <table>
       <thead>
         <tr>
@@ -221,7 +301,7 @@ tr:hover {
           <td>ryan@mail.com</td>
           <td><span class="badge active">Active</span></td>
           <td>2026-02-10</td>
-          <td><button class="btn">View</button></td>
+          <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
           <td>#10022</td>
@@ -229,7 +309,7 @@ tr:hover {
           <td>alex@mail.com</td>
           <td><span class="badge inactive">Inactive</span></td>
           <td>2026-02-09</td>
-          <td><button class="btn">View</button></td>
+          <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
           <td>#10023</td>
@@ -237,7 +317,7 @@ tr:hover {
           <td>michelle@mail.com</td>
           <td><span class="badge suspend">Suspend</span></td>
           <td>2026-02-08</td>
-          <td><button class="btn">View</button></td>
+          <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
           <td>#10024</td>
@@ -245,7 +325,7 @@ tr:hover {
           <td>jason@mail.com</td>
           <td><span class="badge terminate">Terminate</span></td>
           <td>2026-02-07</td>
-          <td><button class="btn">View</button></td>
+          <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
           <td>#10025</td>
@@ -253,7 +333,7 @@ tr:hover {
           <td>angela@mail.com</td>
           <td><span class="badge delete">Delete</span></td>
           <td>2026-02-06</td>
-          <td><button class="btn">View</button></td>
+          <td><button class="btn-outline">View</button></td>
         </tr>
       </tbody>
     </table>
