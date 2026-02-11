@@ -143,6 +143,21 @@ tr:hover {
     display: none;
   }
 }
+
+  /* ===== Summary Card Background Status ===== */
+
+.card-active    { background:#ecfdf5; border-color:#a7f3d0; }
+.card-inactive  { background:#f3f4f6; border-color:#e5e7eb; }
+.card-suspend   { background:#fffbeb; border-color:#fde68a; }
+.card-terminate { background:#fef2f2; border-color:#fecaca; }
+.card-delete    { background:#f1f5f9; border-color:#cbd5e1; }
+.card-total     { background:#ffffff; border-color:#e5e7eb; }
+
+.summary-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+}
 </style>
 </head>
 
@@ -151,32 +166,39 @@ tr:hover {
 <div class="container">
 
   <!-- Summary -->
-  <div class="summary-grid">
-    <div class="summary-card">
-      <div class="summary-title">Active</div>
-      <div class="summary-value" style="color:var(--green)">128</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-title">Inactive</div>
-      <div class="summary-value" style="color:var(--gray)">36</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-title">Suspend</div>
-      <div class="summary-value" style="color:var(--yellow)">9</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-title">Terminate</div>
-      <div class="summary-value" style="color:var(--red)">5</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-title">Delete</div>
-      <div class="summary-value" style="color:var(--dark)">18</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-title">Total</div>
-      <div class="summary-value">196</div>
-    </div>
+<div class="summary-grid">
+
+  <div class="summary-card card-active">
+    <div class="summary-title">Active</div>
+    <div class="summary-value">128</div>
   </div>
+
+  <div class="summary-card card-inactive">
+    <div class="summary-title">Inactive</div>
+    <div class="summary-value">36</div>
+  </div>
+
+  <div class="summary-card card-suspend">
+    <div class="summary-title">Suspend</div>
+    <div class="summary-value">9</div>
+  </div>
+
+  <div class="summary-card card-terminate">
+    <div class="summary-title">Terminate</div>
+    <div class="summary-value">5</div>
+  </div>
+
+  <div class="summary-card card-delete">
+    <div class="summary-title">Delete</div>
+    <div class="summary-value">18</div>
+  </div>
+
+  <div class="summary-card card-total">
+    <div class="summary-title">Total</div>
+    <div class="summary-value">196</div>
+  </div>
+
+</div>
 
   <!-- Report List -->
   <div class="table-wrap">
