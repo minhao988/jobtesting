@@ -210,6 +210,18 @@ tbody tr:hover {
     display: none;
   }
 }
+
+  /* ===== Blocked ===== */
+
+.card-blocked {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+.badge.blocked {
+  background: #ffedd5;
+  color: #9a3412;
+}
 </style>
 </head>
 
@@ -244,7 +256,10 @@ tbody tr:hover {
       <div class="summary-title">Delete</div>
       <div class="summary-value">18</div>
     </div>
-
+<div class="summary-card card-blocked">
+  <div class="summary-title">Blocked</div>
+  <div class="summary-value">7</div>
+</div>
     <div class="summary-card card-total">
       <div class="summary-title">Total</div>
       <div class="summary-value">196</div>
@@ -265,6 +280,7 @@ tbody tr:hover {
         <option>Suspend</option>
         <option>Terminate</option>
         <option>Delete</option>
+        <option>Blocked</option>
       </select>
 
       <input class="input" type="date">
@@ -335,6 +351,14 @@ tbody tr:hover {
           <td>2026-02-06</td>
           <td><button class="btn-outline">View</button></td>
         </tr>
+        <tr>
+  <td>#10026</td>
+  <td>Daniel Ho</td>
+  <td>daniel@mail.com</td>
+  <td><span class="badge blocked">Blocked</span></td>
+  <td>2026-02-05</td>
+  <td><button class="btn-outline">View</button></td>
+</tr>
       </tbody>
     </table>
   </div>
