@@ -7,14 +7,10 @@
 
 <style>
 :root {
-  --green: #22c55e;
-  --gray: #6b7280;
-  --yellow: #f59e0b;
-  --red: #ef4444;
-  --dark: #374151;
   --bg: #f8fafc;
   --card: #ffffff;
   --border: #e5e7eb;
+  --text: #111827;
 }
 
 * {
@@ -25,7 +21,7 @@
 body {
   margin: 0;
   background: var(--bg);
-  color: #111827;
+  color: var(--text);
 }
 
 .container {
@@ -60,27 +56,14 @@ body {
   font-weight: 700;
 }
 
-/* Background status */
-.card-inactive {
-  background: #f8fafc;
-  border-color: #e2e8f0;
-}
+/* ===== Status Card Design (multi-signal) ===== */
 
-.card-delete {
-  background: #020617;
-  border-color: #020617;
-}
-
-.card-delete .summary-title,
-.card-delete .summary-value {
-  color: #f8fafc;
-}
 .card-active    { background:#ecfdf5; border-color:#a7f3d0; }
-
+.card-inactive  { background:#f8fafc; border:1px dashed #cbd5e1; }
 .card-suspend   { background:#fffbeb; border-color:#fde68a; }
-.card-terminate { background:#fef2f2; border-color:#fecaca; }
-
-.card-total     { background:#ffffff; border-color:#e5e7eb; }
+.card-blocked   { background:#fff7ed; border-color:#fdba74; }
+.card-terminate { background:#fef2f2; border-color:#fca5a5; }
+.card-delete    { background:#f1f5f9; border-color:#020617; box-shadow: inset 0 0 0 1px #020617; }
 
 /* ===== Control Block ===== */
 
@@ -136,9 +119,7 @@ body {
   cursor: pointer;
 }
 
-.btn-primary:hover {
-  background: #1d4ed8;
-}
+.btn-primary:hover { background: #1d4ed8; }
 
 .btn-outline {
   height: 38px;
@@ -150,9 +131,7 @@ body {
   cursor: pointer;
 }
 
-.btn-outline:hover {
-  background: #f3f4f6;
-}
+.btn-outline:hover { background: #f3f4f6; }
 
 /* ===== Table ===== */
 
@@ -189,13 +168,8 @@ th {
   font-weight: 600;
 }
 
-tbody tr:nth-child(even) {
-  background: #fafafa;
-}
-
-tbody tr:hover {
-  background: #f1f5f9 !important;
-}
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody tr:hover { background: #f1f5f9 !important; }
 
 /* ===== Status Badge ===== */
 
@@ -206,43 +180,18 @@ tbody tr:hover {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1;
 }
 
-.active    { background: #dcfce7; color: #166534; }
-.inactive  { background: #f3f4f6; color: #4b5563; }
-.suspend   { background: #fef3c7; color: #92400e; }
-.terminate { background: #fee2e2; color: #991b1b; }
-.delete    { background: #e5e7eb; color: #111827; }
-
-/* ===== Responsive ===== */
+.badge.active    { background:#dcfce7; color:#166534; }
+.badge.inactive  { background:#f1f5f9; color:#475569; }
+.badge.suspend   { background:#fef3c7; color:#92400e; }
+.badge.blocked   { background:#ffedd5; color:#9a3412; }
+.badge.terminate { background:#fee2e2; color:#991b1b; }
+.badge.delete    { background:#020617; color:#f8fafc; }
 
 @media (max-width: 768px) {
   th:nth-child(3), td:nth-child(3),
-  th:nth-child(6), td:nth-child(6) {
-    display: none;
-  }
-}
-
-  /* ===== Blocked ===== */
-
-.card-blocked {
-  background: #fff7ed;
-  border-color: #fed7aa;
-}
-
-.badge.blocked {
-  background: #ffedd5;
-  color: #9a3412;
-}
-  .badge.inactive {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-.badge.delete {
-  background: #020617;
-  color: #f8fafc;
+  th:nth-child(6), td:nth-child(6) { display: none; }
 }
 </style>
 </head>
@@ -269,6 +218,11 @@ tbody tr:hover {
       <div class="summary-value">9</div>
     </div>
 
+    <div class="summary-card card-blocked">
+      <div class="summary-title">Blocked</div>
+      <div class="summary-value">7</div>
+    </div>
+
     <div class="summary-card card-terminate">
       <div class="summary-title">Terminate</div>
       <div class="summary-value">5</div>
@@ -277,14 +231,6 @@ tbody tr:hover {
     <div class="summary-card card-delete">
       <div class="summary-title">Delete</div>
       <div class="summary-value">18</div>
-    </div>
-<div class="summary-card card-blocked">
-  <div class="summary-title">Blocked</div>
-  <div class="summary-value">7</div>
-</div>
-    <div class="summary-card card-total">
-      <div class="summary-title">Total</div>
-      <div class="summary-value">196</div>
     </div>
 
   </div>
@@ -300,9 +246,9 @@ tbody tr:hover {
         <option>Active</option>
         <option>Inactive</option>
         <option>Suspend</option>
+        <option>Blocked</option>
         <option>Terminate</option>
         <option>Delete</option>
-        <option>Blocked</option>
       </select>
 
       <input class="input" type="date">
@@ -359,28 +305,28 @@ tbody tr:hover {
         </tr>
         <tr>
           <td>#10024</td>
-          <td>Jason Lee</td>
-          <td>jason@mail.com</td>
-          <td><span class="badge terminate">Terminate</span></td>
+          <td>Daniel Ho</td>
+          <td>daniel@mail.com</td>
+          <td><span class="badge blocked">Blocked</span></td>
           <td>2026-02-07</td>
           <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
           <td>#10025</td>
-          <td>Angela Wong</td>
-          <td>angela@mail.com</td>
-          <td><span class="badge delete">Delete</span></td>
+          <td>Jason Lee</td>
+          <td>jason@mail.com</td>
+          <td><span class="badge terminate">Terminate</span></td>
           <td>2026-02-06</td>
           <td><button class="btn-outline">View</button></td>
         </tr>
         <tr>
-  <td>#10026</td>
-  <td>Daniel Ho</td>
-  <td>daniel@mail.com</td>
-  <td><span class="badge blocked">Blocked</span></td>
-  <td>2026-02-05</td>
-  <td><button class="btn-outline">View</button></td>
-</tr>
+          <td>#10026</td>
+          <td>Angela Wong</td>
+          <td>angela@mail.com</td>
+          <td><span class="badge delete">Delete</span></td>
+          <td>2026-02-05</td>
+          <td><button class="btn-outline">View</button></td>
+        </tr>
       </tbody>
     </table>
   </div>
