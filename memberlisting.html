@@ -61,12 +61,25 @@ body {
 }
 
 /* Background status */
+.card-inactive {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
 
+.card-delete {
+  background: #020617;
+  border-color: #020617;
+}
+
+.card-delete .summary-title,
+.card-delete .summary-value {
+  color: #f8fafc;
+}
 .card-active    { background:#ecfdf5; border-color:#a7f3d0; }
-.card-inactive  { background:#f3f4f6; border-color:#e5e7eb; }
+
 .card-suspend   { background:#fffbeb; border-color:#fde68a; }
 .card-terminate { background:#fef2f2; border-color:#fecaca; }
-.card-delete    { background:#f1f5f9; border-color:#cbd5e1; }
+
 .card-total     { background:#ffffff; border-color:#e5e7eb; }
 
 /* ===== Control Block ===== */
@@ -221,6 +234,15 @@ tbody tr:hover {
 .badge.blocked {
   background: #ffedd5;
   color: #9a3412;
+}
+  .badge.inactive {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.badge.delete {
+  background: #020617;
+  color: #f8fafc;
 }
 </style>
 </head>
