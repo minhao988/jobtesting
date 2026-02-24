@@ -2,24 +2,47 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>滑塊驗證 Demo</title>
+<title>升級版滑塊驗證</title>
 <style>
   body { font-family: Arial; text-align: center; margin-top: 50px; }
+  #captchaContainer {
+    position: relative;
+    width: 300px; height: 150px;
+    margin: 0 auto;
+    background: #ccc url('https://picsum.photos/300/150?random=1') no-repeat center/cover;
+    border-radius: 10px;
+  }
+  #puzzle {
+    position: absolute;
+    width: 50px; height: 50px;
+    background: url('https://picsum.photos/300/150?random=1') no-repeat;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    top: 50px;
+    cursor: pointer;
+  }
   #sliderContainer {
-    width: 300px; height: 50px; background: #eee; margin: 0 auto;
-    position: relative; border-radius: 8px;
+    width: 300px; height: 40px;
+    background: #eee; margin: 20px auto; border-radius: 8px;
+    position: relative;
   }
   #slider {
-    width: 50px; height: 50px; background: #4CAF50; border-radius: 8px;
-    position: absolute; left: 0; top: 0; cursor: pointer; transition: background 0.2s;
+    width: 50px; height: 40px;
+    background: #4CAF50; border-radius: 8px;
+    position: absolute; left: 0; top: 0; cursor: pointer;
+    transition: background 0.2s;
   }
   #slider.success { background: #2ecc71; }
   #slider.failure { background: #e74c3c; }
+  #status { font-weight: bold; margin-top: 15px; }
 </style>
 </head>
 <body>
 
-<h2>請拖曳滑塊完成驗證</h2>
+<h2>請拖曳滑塊完成拼圖驗證</h2>
+<div id="captchaContainer">
+  <div id="puzzle"></div>
+</div>
 <div id="sliderContainer">
   <div id="slider"></div>
 </div>
@@ -27,26 +50,35 @@
 
 <script>
 const slider = document.getElementById("slider");
-const container = document.getElementById("sliderContainer");
+const sliderContainer = document.getElementById("sliderContainer");
+const puzzle = document.getElementById("puzzle");
+const captchaContainer = document.getElementById("captchaContainer");
 const status = document.getElementById("status");
 
 let dragging = false;
 let startX = 0;
 
-// 隨機終點位置 (增加難度)
-const endPos = Math.floor(Math.random() * 50) + 230; // 230 ~ 280 px
+// 隨機缺口位置
+const maxOffset = captchaContainer.offsetWidth - puzzle.offsetWidth - 10;
+const targetPos = Math.floor(Math.random() * (maxOffset - 50)) + 50; // 50 ~ maxOffset px
+puzzle.style.left = targetPos + "px";
 
-slider.addEventListener("mousedown", (e) => {
+// 初始化 slider
+slider.style.left = "0px";
+
+slider.addEventListener("mousedown", e => {
   dragging = true;
   startX = e.clientX - slider.offsetLeft;
 });
 
-document.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", e => {
   if (!dragging) return;
   dragging = false;
-  // 判斷是否接近終點
-  if (slider.offsetLeft >= endPos - 5 && slider.offsetLeft <= endPos + 5) {
-    slider.style.left = endPos + "px";
+
+  // 判斷是否對齊
+  let sliderLeft = parseInt(slider.style.left);
+  if (sliderLeft >= targetPos - 5 && sliderLeft <= targetPos + 5) {
+    slider.style.left = targetPos + "px";
     slider.classList.add("success");
     status.textContent = "驗證成功！✅";
     status.style.color = "green";
@@ -61,12 +93,16 @@ document.addEventListener("mouseup", () => {
   }
 });
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("mousemove", e => {
   if (!dragging) return;
   let x = e.clientX - startX;
   if (x < 0) x = 0;
-  if (x > container.offsetWidth - slider.offsetWidth) x = container.offsetWidth - slider.offsetWidth;
+  if (x > sliderContainer.offsetWidth - slider.offsetWidth) x = sliderContainer.offsetWidth - slider.offsetWidth;
   slider.style.left = x + "px";
+
+  // 同步拼圖位置
+  const ratio = x / (sliderContainer.offsetWidth - slider.offsetWidth);
+  puzzle.style.left = ratio * (captchaContainer.offsetWidth - puzzle.offsetWidth) + "px";
 });
 </script>
 
