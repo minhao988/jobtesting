@@ -2,35 +2,19 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>修正版滑塊驗證</title>
+<title>Canvas 拼圖滑塊 CAPTCHA</title>
 <style>
 body { font-family: Arial; text-align: center; margin-top: 50px; }
-#captchaContainer {
-  position: relative;
-  width: 300px; height: 150px;
-  margin: 0 auto;
-  background: #ccc url('https://picsum.photos/300/150?random=1') no-repeat center/cover;
-  border-radius: 10px;
-}
-#puzzle {
-  position: absolute;
-  width: 50px; height: 50px;
-  background: url('https://picsum.photos/300/150?random=1') no-repeat;
-  border: 2px solid #fff;
-  border-radius: 5px;
-  top: 50px;
-  left: 150px; /* 固定缺口位置 */
-  pointer-events: none;
-}
+#captchaWrapper { position: relative; width: 300px; margin: 0 auto; }
+#captchaCanvas { border-radius: 10px; }
 #sliderContainer {
   width: 300px; height: 40px;
   background: #eee; margin: 20px auto; border-radius: 8px;
   position: relative;
 }
 #slider {
-  width: 50px; height: 40px;
-  background: #4CAF50; border-radius: 8px;
-  position: absolute; left: 0; top: 0; cursor: pointer;
+  width: 50px; height: 40px; background: #4CAF50;
+  position: absolute; left: 0; top: 0; border-radius: 8px; cursor: pointer;
   transition: background 0.2s;
 }
 #slider.success { background: #2ecc71; }
@@ -41,28 +25,68 @@ body { font-family: Arial; text-align: center; margin-top: 50px; }
 <body>
 
 <h2>請拖曳滑塊完成拼圖驗證</h2>
-<div id="captchaContainer">
-  <div id="puzzle"></div>
+
+<div id="captchaWrapper">
+  <canvas id="captchaCanvas" width="300" height="150"></canvas>
 </div>
+
 <div id="sliderContainer">
   <div id="slider"></div>
 </div>
+
 <p id="status"></p>
 
 <script>
+const canvas = document.getElementById("captchaCanvas");
+const ctx = canvas.getContext("2d");
 const slider = document.getElementById("slider");
 const sliderContainer = document.getElementById("sliderContainer");
-const puzzle = document.getElementById("puzzle");
-const captchaContainer = document.getElementById("captchaContainer");
 const status = document.getElementById("status");
 
 let dragging = false;
 let startX = 0;
 
-// 拼圖目標位置
-const targetPos = parseInt(puzzle.style.left);
+// 背景圖片
+const bg = new Image();
+bg.src = "https://picsum.photos/300/150?random=" + Math.floor(Math.random() * 1000);
+
+// 拼圖塊尺寸
+const pieceSize = 50;
+let pieceX, pieceY;
+
+// 滑塊最大移動距離
 const maxSliderX = sliderContainer.offsetWidth - slider.offsetWidth;
 
+bg.onload = function() {
+  pieceY = Math.floor(Math.random() * (canvas.height - pieceSize));
+  pieceX = Math.floor(Math.random() * (canvas.width - pieceSize - pieceSize)); // 留空間給滑塊
+
+  drawCaptcha();
+};
+
+// 畫 CAPTCHA
+function drawCaptcha(sliderOffset=0) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 畫完整背景
+  ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+
+  // 挖出缺口
+  ctx.save();
+  ctx.globalCompositeOperation = "destination-out";
+  ctx.fillStyle = "rgba(0,0,0,1)";
+  ctx.fillRect(pieceX, pieceY, pieceSize, pieceSize);
+  ctx.restore();
+
+  // 畫滑塊拼圖塊
+  ctx.drawImage(
+    bg,
+    pieceX, pieceY, pieceSize, pieceSize,
+    sliderOffset, pieceY, pieceSize, pieceSize
+  );
+}
+
+// 滑塊拖曳事件
 slider.addEventListener("mousedown", e => {
   dragging = true;
   startX = e.clientX - slider.offsetLeft;
@@ -72,12 +96,12 @@ document.addEventListener("mouseup", e => {
   if (!dragging) return;
   dragging = false;
 
-  // 判斷滑塊位置是否接近目標
-  let sliderLeft = parseInt(slider.style.left);
-  const puzzlePos = sliderLeft * (captchaContainer.offsetWidth - puzzle.offsetWidth) / maxSliderX;
-  if (Math.abs(puzzlePos - targetPos) <= 10) { // ±10px 容錯
+  const sliderLeft = parseInt(slider.style.left);
+  const ratio = sliderLeft / maxSliderX;
+  const piecePos = ratio * (canvas.width - pieceSize);
+
+  if (Math.abs(piecePos - pieceX) < 10) {
     slider.style.left = maxSliderX + "px";
-    puzzle.style.left = targetPos + "px";
     slider.classList.add("success");
     status.textContent = "驗證成功！✅";
     status.style.color = "green";
@@ -87,8 +111,8 @@ document.addEventListener("mouseup", e => {
     status.style.color = "red";
     setTimeout(() => {
       slider.style.left = "0px";
-      puzzle.style.left = targetPos + "px";
       slider.classList.remove("failure");
+      drawCaptcha(0);
     }, 800);
   }
 });
@@ -100,9 +124,9 @@ document.addEventListener("mousemove", e => {
   if (x > maxSliderX) x = maxSliderX;
   slider.style.left = x + "px";
 
-  // 拼圖跟隨滑塊
-  const puzzleX = x * (captchaContainer.offsetWidth - puzzle.offsetWidth) / maxSliderX;
-  puzzle.style.left = puzzleX + "px";
+  const ratio = x / maxSliderX;
+  const sliderOffset = ratio * (canvas.width - pieceSize);
+  drawCaptcha(sliderOffset);
 });
 </script>
 
