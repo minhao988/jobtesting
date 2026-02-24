@@ -125,7 +125,7 @@ document.addEventListener("mouseup", e => {
   const ratio = sliderLeft / maxSliderX;
   const piecePos = ratio * (canvas.width - pieceSize);
 
-  if(Math.abs(piecePos - pieceX)<10 && validTrail){
+  if(Math.abs(piecePos - pieceX)<5 && validTrail){
     slider.style.left = maxSliderX+"px";
     slider.classList.add("success");
     status.textContent = "驗證成功！✅";
