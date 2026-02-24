@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>Canvas 拼圖滑塊 CAPTCHA</title>
+<title>升級版不規則拼圖滑塊 CAPTCHA</title>
 <style>
 body { font-family: Arial; text-align: center; margin-top: 50px; }
 #captchaWrapper { position: relative; width: 300px; margin: 0 auto; }
@@ -25,15 +25,12 @@ body { font-family: Arial; text-align: center; margin-top: 50px; }
 <body>
 
 <h2>請拖曳滑塊完成拼圖驗證</h2>
-
 <div id="captchaWrapper">
   <canvas id="captchaCanvas" width="300" height="150"></canvas>
 </div>
-
 <div id="sliderContainer">
   <div id="slider"></div>
 </div>
-
 <p id="status"></p>
 
 <script>
@@ -45,6 +42,7 @@ const status = document.getElementById("status");
 
 let dragging = false;
 let startX = 0;
+let trail = [];
 
 // 背景圖片
 const bg = new Image();
@@ -57,50 +55,63 @@ let pieceX, pieceY;
 // 滑塊最大移動距離
 const maxSliderX = sliderContainer.offsetWidth - slider.offsetWidth;
 
-bg.onload = function() {
-  pieceY = Math.floor(Math.random() * (canvas.height - pieceSize));
-  pieceX = Math.floor(Math.random() * (canvas.width - pieceSize - pieceSize)); // 留空間給滑塊
-
-  drawCaptcha();
-};
+// 生成不規則形狀函數
+function drawPuzzleShape(ctx, x, y, size) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + size * 0.2);
+  ctx.bezierCurveTo(x + size*0.2, y - size*0.1, x + size*0.8, y + size*1.1, x + size, y + size*0.8);
+  ctx.lineTo(x + size, y + size);
+  ctx.lineTo(x, y + size);
+  ctx.closePath();
+}
 
 // 畫 CAPTCHA
+bg.onload = function() {
+  pieceY = Math.floor(Math.random() * (canvas.height - pieceSize));
+  pieceX = Math.floor(Math.random() * (canvas.width - pieceSize - pieceSize));
+
+  drawCaptcha(0);
+};
+
 function drawCaptcha(sliderOffset=0) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // 畫完整背景
   ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
-  // 挖出缺口
+  // 挖出不規則缺口
   ctx.save();
   ctx.globalCompositeOperation = "destination-out";
-  ctx.fillStyle = "rgba(0,0,0,1)";
-  ctx.fillRect(pieceX, pieceY, pieceSize, pieceSize);
+  drawPuzzleShape(ctx, pieceX, pieceY, pieceSize);
+  ctx.fill();
   ctx.restore();
 
-  // 畫滑塊拼圖塊
-  ctx.drawImage(
-    bg,
-    pieceX, pieceY, pieceSize, pieceSize,
-    sliderOffset, pieceY, pieceSize, pieceSize
-  );
+  // 畫滑塊拼圖
+  ctx.save();
+  ctx.beginPath();
+  drawPuzzleShape(ctx, sliderOffset, pieceY, pieceSize);
+  ctx.clip();
+  ctx.drawImage(bg, pieceX, pieceY, pieceSize, pieceSize, sliderOffset, pieceY, pieceSize, pieceSize);
+  ctx.restore();
 }
 
 // 滑塊拖曳事件
 slider.addEventListener("mousedown", e => {
   dragging = true;
   startX = e.clientX - slider.offsetLeft;
+  trail = []; // 軌跡清空
 });
 
 document.addEventListener("mouseup", e => {
   if (!dragging) return;
   dragging = false;
 
+  // 軌跡檢查：平均速度
+  const avgSpeed = trail.length > 1 ? (trail[trail.length-1] - trail[0]) / trail.length : 0;
+
   const sliderLeft = parseInt(slider.style.left);
   const ratio = sliderLeft / maxSliderX;
   const piecePos = ratio * (canvas.width - pieceSize);
 
-  if (Math.abs(piecePos - pieceX) < 10) {
+  if (Math.abs(piecePos - pieceX) < 10 && Math.abs(avgSpeed) > 0.1) { // ±10px + 簡單軌跡
     slider.style.left = maxSliderX + "px";
     slider.classList.add("success");
     status.textContent = "驗證成功！✅";
@@ -124,6 +135,7 @@ document.addEventListener("mousemove", e => {
   if (x > maxSliderX) x = maxSliderX;
   slider.style.left = x + "px";
 
+  trail.push(x); // 記錄軌跡
   const ratio = x / maxSliderX;
   const sliderOffset = ratio * (canvas.width - pieceSize);
   drawCaptcha(sliderOffset);
