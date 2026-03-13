@@ -54,28 +54,13 @@
             textStyle: { color: '#333' },
             titleTextStyle: { color: '#333', fontSize: 16 },
           },
-          annotations: {
-            style: 'line', // 数据标签的样式
-          },
-          series: {
-            0: { 
-              annotations: { 
-                stem: { color: '#1f77b4' }, // Member Sales 的数据标签颜色
-              }
-            },
-            1: { 
-              annotations: { 
-                stem: { color: '#ff7f0e' }, // Guest Sales 的数据标签颜色
-              }
-            }
-          },
+          areaOpacity: 0.3, // 设置区域透明度
           width: 900,
           height: 500,
           pointSize: 5, // 点的大小
-          dataOpacity: 0.8 // 数据透明度
         };
 
-        const chart = new google.visualization.LineChart(document.getElementById('salesChart'));
+        const chart = new google.visualization.AreaChart(document.getElementById('salesChart'));
         chart.draw(data, options);
       }
     </script>
