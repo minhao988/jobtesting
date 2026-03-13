@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Overview</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <div id="salesChart" style="width: 100%; height: 500px;"></div>
+    <script type="text/javascript">
+      google.charts.load('current', { packages: ['corechart', 'line'] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', 'Month');
+        data.addColumn('number', 'Member Sales');
+        data.addColumn('number', 'Guest Sales');
+
+        data.addRows([
+          ['January', 150, 100],
+          ['February', 200, 150],
+          ['March', 250, 200],
+          ['April', 300, 250],
+          ['May', 350, 300],
+          ['June', 400, 350],
+          ['July', 450, 400],
+        ]);
+
+        const options = {
+          title: 'Member & Guest Sales Overview',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          colors: ['#1f77b4', '#ff7f0e'],
+          hAxis: {
+            title: 'Month',
+          },
+          vAxis: {
+            title: 'Sales',
+            minValue: 0,
+          },
+          width: 900,
+          height: 500,
+        };
+
+        const chart = new google.visualization.LineChart(document.getElementById('salesChart'));
+        chart.draw(data, options);
+      }
+    </script>
+</body>
+</html>
