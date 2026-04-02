@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLM AI Center</title>
+
+<style>
+body {
+  margin:0;
+  font-family: "Segoe UI", Arial;
+  background:#f4f6f9;
+}
+
+/* Sidebar */
+.sidebar {
+  width:240px;
+  height:100vh;
+  background:#111827;
+  color:white;
+  position:fixed;
+}
+
+.sidebar h2 {
+  padding:20px;
+  margin:0;
+  font-size:20px;
+}
+
+.sidebar ul {
+  list-style:none;
+  padding:0;
+}
+
+.sidebar ul li {
+  padding:15px 20px;
+  cursor:pointer;
+}
+
+.sidebar ul li:hover {
+  background:#1f2937;
+}
+
+/* Main */
+.main {
+  margin-left:240px;
+  padding:25px;
+}
+
+h1 {
+  margin-bottom:20px;
+}
+
+/* Cards */
+.card {
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:20px;
+}
+
+/* Tags */
+.tag {
+  padding:5px 10px;
+  border-radius:6px;
+  color:white;
+  font-size:12px;
+}
+
+.green { background:#16a34a; }
+.red { background:#dc2626; }
+.yellow { background:#f59e0b; }
+
+/* Table */
+table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+table th, table td {
+  padding:10px;
+  text-align:left;
+  border-bottom:1px solid #eee;
+}
+
+/* Buttons */
+button {
+  padding:6px 10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  margin-right:5px;
+}
+
+.btn-primary { background:#2563eb; color:white; }
+.btn-danger { background:#dc2626; color:white; }
+.btn-warning { background:#f59e0b; color:white; }
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>🧠 AI Center</h2>
+  <ul>
+    <li>Dashboard</li>
+    <li>Leader Prediction</li>
+    <li>Churn Risk</li>
+    <li>Recommendations</li>
+    <li>Fraud Detection</li>
+    <li>Network Insights</li>
+  </ul>
+</div>
+
+<div class="main">
+
+<h1>AI Dashboard</h1>
+
+<div class="grid">
+
+  <!-- Leader Prediction -->
+  <div class="card">
+    <h3>🔥 Leader Prediction</h3>
+    <table>
+      <tr><th>Name</th><th>Score</th><th>Status</th></tr>
+      <tr>
+        <td>John Tan</td>
+        <td>92</td>
+        <td><span class="tag green">High Potential</span></td>
+      </tr>
+      <tr>
+        <td>Siti Aminah</td>
+        <td>85</td>
+        <td><span class="tag green">Rising Leader</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Churn Risk -->
+  <div class="card">
+    <h3>⚠️ Churn Risk</h3>
+    <table>
+      <tr><th>Name</th><th>Status</th><th>Action</th></tr>
+      <tr>
+        <td>Ahmad Lim</td>
+        <td><span class="tag red">High Risk</span></td>
+        <td>
+          <button class="btn-primary">Message</button>
+          <button class="btn-warning">Promo</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="card">
+    <h3>🎯 Smart Recommendations</h3>
+    <ul>
+      <li>✔ Follow up Ahmad Lim</li>
+      <li>✔ Reward John Tan</li>
+      <li>✔ Restock Product A</li>
+      <li>✔ Focus Team B</li>
+    </ul>
+  </div>
+
+  <!-- Fraud Detection -->
+  <div class="card">
+    <h3>🚨 Fraud Detection</h3>
+    <table>
+      <tr><th>User</th><th>Issue</th><th>Action</th></tr>
+      <tr>
+        <td>#1023</td>
+        <td>Same IP multiple accounts</td>
+        <td><button class="btn-danger">Freeze</button></td>
+      </tr>
+      <tr>
+        <td>#2044</td>
+        <td>Unusual wallet transfer</td>
+        <td><button class="btn-danger">Investigate</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Network Insights -->
+  <div class="card">
+    <h3>🌱 Network Insights</h3>
+    <p>Team A: <span class="tag green">+25%</span></p>
+    <p>Team B: <span class="tag red">-10%</span></p>
+    <p>Team C: <span class="tag yellow">Stable</span></p>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>
