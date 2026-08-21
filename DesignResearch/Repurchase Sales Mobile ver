@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Repurchase Storefront</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e1e3e4",
+                      "tertiary-container": "#697071",
+                      "outline-variant": "#bdc8cb",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#c1c8c9",
+                      "inverse-primary": "#7ad4e5",
+                      "on-tertiary-fixed": "#161d1e",
+                      "secondary": "#4f6168",
+                      "on-surface": "#191c1d",
+                      "surface-container-high": "#e6e8e9",
+                      "on-background": "#191c1d",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#384950",
+                      "surface-tint": "#006876",
+                      "secondary-container": "#d2e6ee",
+                      "text-muted": "#64748B",
+                      "inverse-on-surface": "#eff1f2",
+                      "success-teal": "#0D9488",
+                      "background": "#f8fafb",
+                      "surface-dim": "#d8dadb",
+                      "primary-fixed-dim": "#7ad4e5",
+                      "on-primary-container": "#daf8ff",
+                      "surface-container": "#eceeef",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#515859",
+                      "tertiary-fixed": "#dde4e5",
+                      "on-tertiary-container": "#eef4f5",
+                      "error": "#ba1a1a",
+                      "outline": "#6e797b",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#d2e6ee",
+                      "surface-border": "#E2E8F0",
+                      "on-secondary-fixed": "#0c1e24",
+                      "on-secondary-container": "#55676e",
+                      "on-primary-fixed-variant": "#004e59",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#414849",
+                      "surface-container-low": "#f2f4f5",
+                      "on-surface-variant": "#3e494b",
+                      "secondary-fixed-dim": "#b7cad1",
+                      "primary": "#005f6c",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#f8fafb",
+                      "surface-bright": "#f8fafb",
+                      "primary-container": "#007a8a",
+                      "on-primary-fixed": "#001f25",
+                      "surface-container-highest": "#e1e3e4",
+                      "text-main": "#1A202C",
+                      "primary-fixed": "#a0efff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "20px",
+                      "sm": "16px",
+                      "xs": "8px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "margin-desktop": "48px",
+                      "xl": "64px",
+                      "lg": "40px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "body-sm": [
+                              "Geist"
+                      ],
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "display-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #f8fafb;
+            padding-bottom: 90px; /* Space for BottomNavBar */
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="docked w-full top-0 sticky z-50 border-b border-surface-border bg-surface flex justify-between items-center h-16 px-margin-mobile">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Zenith MLM</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-surface-border bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+</div>
+</header>
+<main class="w-full max-w-md mx-auto relative px-margin-mobile pt-sm pb-xl">
+<!-- Status Tracker Sticky Header -->
+<div class="sticky top-[80px] z-40 bg-surface/90 backdrop-blur-md border border-surface-border rounded-xl p-md mb-md shadow-sm">
+<div class="flex justify-between items-end mb-xs">
+<div>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Monthly Volume (PV)</h2>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary"><span class="font-bold">125</span> <span class="font-body-sm text-body-sm text-on-surface-variant">/ 200 PV</span></p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-success-teal bg-success-teal/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> On Track
+                    </span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high rounded-full h-2 mt-sm overflow-hidden">
+<div class="bg-primary h-2 rounded-full" style="width: 62.5%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">75 PV remaining to maintain active status.</p>
+</div>
+<!-- Filter/Categories -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar py-2 mb-md">
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary bg-primary/5 text-primary font-label-md text-label-md">All Products</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-surface-border bg-surface text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md">Supplements</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-surface-border bg-surface text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md">Skincare</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-surface-border bg-surface text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md">Apparel</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 gap-sm">
+<!-- Product Card 1 -->
+<div class="bg-surface border border-surface-border rounded-xl overflow-hidden flex flex-col group hover:border-outline-variant transition-colors">
+<div class="aspect-square bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A sleek, modern protein powder tub with minimalist white and teal branding on a clean, well-lit surface. Soft studio lighting highlights the premium matte finish of the packaging. The setting implies health and corporate professionalism. High contrast, sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4m_XOy27htMjkeXPfp7LRiUCHZZTnGmYYA54G0c4X_VSD36a85xC5yFqYcnLAOhkZFX_c7ArByFLQEGefaj4n_W-ccqwCe7whhIIpiw01tsCAKKNr590rho3HnpqhfAh7R6sREPnS0zcP5lnoPNhFIVwhrHX0FuhNzMdTWvMcAQ7DFqrYNsOtFNav-QZORdJxWCS5837KniBxbYgYgboRJsBDWjlJi-3o8Fj9UYCg3LZ_n3AYNBln"/>
+<div class="absolute top-2 right-2 bg-surface/90 backdrop-blur text-on-surface font-label-sm text-label-sm px-2 py-1 rounded-md border border-surface-border">
+                        +25 PV
+                    </div>
+</div>
+<div class="p-sm flex flex-col flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-1 truncate">Omega Core Plus</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md truncate">Premium Fish Oil</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="font-body-md text-body-md font-semibold text-primary">$49.99</span>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface border border-surface-border rounded-xl overflow-hidden flex flex-col group hover:border-outline-variant transition-colors">
+<div class="aspect-square bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A luxury skincare serum bottle with a metallic teal dropper cap, standing on a pristine white marble block. Minimalist, premium corporate aesthetic with soft natural light creating gentle shadows. The focus is sharp on the elegant label." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpOfjo8JTROmubtbFjdmfI4IxmuKhKNSrfIujoh1GXcImp7rSKKr_DqMm7EB2WfOB2TueOou9JdhV9_eRgpQ3uClbLMSwUimmZOqk-Qirci9mjL0kmIYB53kkHRzvd5-8cC-5pISgRgSTkDZRui7SnssFVVEqaLaNZIYFIO2ANAbOPr3JsjncO3ofyDEWhhkKyoHPvX1jXXgMZc-8_GitCFyYnu049hshE5rzgaLIIRUHEM8V-HRnz"/>
+<div class="absolute top-2 right-2 bg-surface/90 backdrop-blur text-on-surface font-label-sm text-label-sm px-2 py-1 rounded-md border border-surface-border">
+                        +50 PV
+                    </div>
+</div>
+<div class="p-sm flex flex-col flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-1 truncate">Radiance Serum</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md truncate">Nighttime Repair</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="font-body-md text-body-md font-semibold text-primary">$89.00</span>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface border border-surface-border rounded-xl overflow-hidden flex flex-col group hover:border-outline-variant transition-colors">
+<div class="aspect-square bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A box of premium nutritional meal replacement bars with clean, corporate teal and white packaging. Resting on a light gray minimal desk surface. Soft, professional lighting emphasizing the healthy, high-end nature of the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN9-slaMCv4t-itz6QLgxirh_p8z8oACJ9aM9uk-XL5HZI7WY-rlFVp5_NrD7lyliczoZCk_Qol8TiUtlt9V1jWYimNxj8Y2y9Z36T6INoBDTvaS_Ka_nkXmUaSc1Qflav8qRPc7XLG9zzblPPndDVkYwo7lgStte_ObHic4jzPTs3vtAHFHBVM56RI_6SfV-k24JjjaiJEoZU_l6uX22J8HM2Od7pa4E1--Z4KXDOeyfC-PuL8foc"/>
+<div class="absolute top-2 right-2 bg-surface/90 backdrop-blur text-on-surface font-label-sm text-label-sm px-2 py-1 rounded-md border border-surface-border">
+                        +15 PV
+                    </div>
+</div>
+<div class="p-sm flex flex-col flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-1 truncate">Zenith Bars</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md truncate">Box of 12</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="font-body-md text-body-md font-semibold text-primary">$29.50</span>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface border border-surface-border rounded-xl overflow-hidden flex flex-col group hover:border-outline-variant transition-colors">
+<div class="aspect-square bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A matte white and teal insulated water bottle with subtle corporate branding. Placed against a clean, light off-white background with a soft gradient shadow. Premium, minimalist hydration product suited for a professional environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA7Ns9D8qfZXx1U_71Z0mQccyMwxy-4Hq6gMk1D9tinm3ofC6jCiUnl-hp6RigU3UyYEOUA6RqMkZNnsCeUXNhCVS-5pbHx0Vj9s5_Zt5l2Qr4Q2GJOPFP1IHmrI8RlHPXojJLVKOIyqlHx-putJg1T9c_6EmPzzo0iQeXfhbQIryjvF7r-6K_lmNULJW-72bTJQg-u1B1jaPyMa1s2Tna09QSdW8kgHMUM3RfzUlhIpo-D_sP5Bpa"/>
+<div class="absolute top-2 right-2 bg-surface/90 backdrop-blur text-on-surface font-label-sm text-label-sm px-2 py-1 rounded-md border border-surface-border">
+                        +10 PV
+                    </div>
+</div>
+<div class="p-sm flex flex-col flex-grow">
+<h3 class="font-label-md text-label-md text-on-surface mb-1 truncate">HydroFlask Pro</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md truncate">32oz Insulated</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="font-body-md text-body-md font-semibold text-primary">$35.00</span>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface flex justify-around items-center h-20 pb-safe px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:hidden border-t-0">
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Shop</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">My Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Earnings</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>
